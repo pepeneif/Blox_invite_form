@@ -1,0 +1,99 @@
+/* page.css — envoltura de página y ajustes finos.
+   Une ledger.css + form.css y aplica los ajustes pedidos sobre esa base. */
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+/* CORRECCIÓN 1: form.css usa display:flex en .status, lo que gana al
+   display:none que el navegador aplica a [hidden]. Sin esto el estado
+   ("Sent" / "Missing data") se vería siempre, incluso vacío. */
+.status[hidden] { display: none !important; }
+
+/* CORRECCIÓN 2: los botones heredan font:inherit de form.css, pero con
+   ledger.css de fondo conviene fijar el tamaño del shell. */
+.form-shell { display: block; }
+
+/* Cabeceras con el nombre real de la columna.
+   form.css las tenía como letras A/B/C en mayúsculas y centradas; con texto
+   largo se alinean a la izquierda y se leen como encabezado normal. */
+.col-letter {
+  justify-content: flex-start;
+  padding-left: 12px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ink, #1a1a18);
+}
+
+/* Foco de la celda activa más sutil:
+   form.css lo tenía en 2 px de cobre opaco; queda en 1 px y cobre al 45 %.
+   Misma especificidad que form.css, pero page.css va después -> gana esta. */
+.cell:focus {
+  box-shadow: inset 0 0 0 1px rgba(160, 95, 37, 0.45);
+}
+
+/* Fuera la línea de la columna activa.
+   form.css subrayaba la cabecera de la columna con foco (inset 0 -3px cobre);
+   se anula el borde y se conserva solo el cambio de color de la cabecera. */
+.sheet:has(.cell:nth-child(2):focus) .col-letter:nth-child(2),
+.sheet:has(.cell:nth-child(3):focus) .col-letter:nth-child(3),
+.sheet:has(.cell:nth-child(4):focus) .col-letter:nth-child(4) {
+  box-shadow: none;
+}
+
+/* Celda con formato inválido (2026-10-23): email o teléfono mal escritos.
+   Rojo discreto, con el mismo peso visual que el foco sutil. */
+.cell.invalid {
+  box-shadow: inset 0 0 0 1px rgba(178, 34, 34, 0.55);
+  background: rgba(178, 34, 34, 0.05);
+}
+.cell.invalid:focus {
+  box-shadow: inset 0 0 0 1px rgba(178, 34, 34, 0.75);
+}
+/* El mensaje de formato usa el mismo sitio que "Sent": linea de estado. */
+.status-err { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* --- Iconos de la linea de estado --- */
+
+/* 1) Fuera el punto grisaceo que salia delante del estado. */
+.status::before { content: none; display: none; }
+
+/* 2) Separacion clara entre el simbolo y el texto. */
+.status-ok::before,
+.status-err::before { margin-right: 9px; }
+
+/* 3) El aviso de error es un TRIANGULO AMARILLO con "!".
+   Borde MARRON fino: contorno `#8a5626` de 1,15 unidades (el mismo marron del texto
+   del error) y el "!" del mismo marron. Esquinas redondeadas para evitar puntas de
+   miter. Bajado 2 px para alinearse con el texto. */
+.status-err::before {
+  content: "";
+  width: 17px;
+  height: 16px;
+  border-radius: 0;
+  background: none;
+  transform: translateY(2px);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M8%202.8%20L13.6%2012.7%20H2.4%20Z%27%20fill%3D%27%23f7c900%27%20stroke%3D%27%238a5626%27%20stroke-width%3D%271.15%27%20stroke-linejoin%3D%27round%27%20stroke-linecap%3D%27round%27%2F%3E%3Crect%20x%3D%277.3%27%20y%3D%275.95%27%20width%3D%271.4%27%20height%3D%273.5%27%20rx%3D%270.7%27%20fill%3D%27%238a5626%27%2F%3E%3Ccircle%20cx%3D%278%27%20cy%3D%2711.05%27%20r%3D%270.82%27%20fill%3D%27%238a5626%27%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 17px 16px;
+}
+
+/* Linea inferior de la cabecera: form.css la ponia en 2 px NEGRO
+   (var(--ink)); queda en el mismo color que el resto de divisorias de celda
+   del encabezado (var(--hairline)). */
+.sheet-head > * {
+  border-bottom-color: var(--hairline, #c8bda8);
+}
+
+/* Linea de introduccion bajo "Blox.Global": usa la .lede de ledger.css pero
+   un punto mas discreta y con aire antes de la tabla. */
+.form-intro {
+  margin: 0 0 22px;
+  font-size: 15px;
+  max-width: 62ch;
+}

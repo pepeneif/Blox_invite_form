@@ -1,0 +1,19 @@
+/* ledger.css — tokens de la piel "Ledger".
+   Papel cálido, tinta oscura, acento cobre, sans del sistema.
+   Es lo único que el formulario necesita de esta piel: definiciones y base. */
+:root{
+  --paper:#f5f1eb; --panel:#fbf8f2; --card:#ffffff; --hairline:#c8bda8;
+  --ink:#1a1a18; --ink-2:#6b6559;
+  --accent:#a05f25; --accent-border:#b06a2c; --accent-text:#96551f; --accent-ink:#ffffff;
+  --radius:10px;
+  --font: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-text)}
+.lede{max-width:56ch;color:var(--ink-2);font-size:17px;margin:0}
+
+/* Respeta a quien pide menos movimiento */
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important}
+}

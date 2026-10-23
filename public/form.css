@@ -1,0 +1,287 @@
+/* Blox.Global — form.css
+   Capa visual tipo Excel para el formulario de contactos.
+   Se superpone a ledger.css: consume sus tokens vía var(--token, fallback)
+   para que también funcione standalone en la maqueta. Sin fuentes ni assets externos. */
+
+.sheet {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  background: var(--card, #ffffff);
+  border: 1px solid var(--hairline, #c8bda8);
+  border-radius: var(--radius, 10px);
+  box-shadow: 0 10px 30px rgba(26, 26, 24, 0.06);
+  font-family: var(--font, system-ui);
+  color: var(--ink, #1a1a18);
+}
+
+.sheet-head,
+.row {
+  display: grid;
+  grid-template-columns:
+    var(--sheet-gutter, 46px)
+    minmax(168px, 2.1fr)
+    minmax(150px, 1.6fr)
+    minmax(140px, 1.2fr);
+  min-width: 520px;
+}
+
+.sheet-head {
+  background: var(--paper, #f5f1eb);
+}
+
+.sheet-head > * {
+  border-bottom: 2px solid var(--ink, #1a1a18);
+}
+
+.rownum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 6px 8px;
+  background: var(--panel, #fbf8f2);
+  color: var(--ink-2, #6b6559);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  border-right: 1px solid var(--hairline, #c8bda8);
+}
+
+.col-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  color: var(--ink, #1a1a18);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-right: 1px solid var(--hairline, #c8bda8);
+}
+
+.col-letter:last-child {
+  border-right: 0;
+}
+
+.row {
+  background: var(--card, #ffffff);
+}
+
+.row > * {
+  border-bottom: 1px solid var(--hairline, #c8bda8);
+}
+
+.row:last-child > * {
+  border-bottom: 0;
+}
+
+.cell {
+  min-width: 0;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-right: 1px solid var(--hairline, #c8bda8);
+  background: transparent;
+  color: var(--ink, #1a1a18);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.35;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.cell:last-child {
+  border-right: 0;
+}
+
+.cell::placeholder {
+  color: var(--ink-2, #6b6559);
+  opacity: 0.85;
+}
+
+.cell:hover {
+  background: var(--paper, #f5f1eb);
+}
+
+/* Celda activa estilo Excel: borde de foco interior visible con teclado y ratón. */
+.cell:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--accent, #a05f25);
+  background: var(--card, #ffffff);
+}
+
+.row:focus-within .rownum {
+  color: var(--accent, #a05f25);
+  background: var(--paper, #f5f1eb);
+  font-weight: 700;
+}
+
+/* Resalta la letra de la columna activa (mejora progresiva con :has). */
+.sheet:has(.cell:nth-child(2):focus) .col-letter:nth-child(2),
+.sheet:has(.cell:nth-child(3):focus) .col-letter:nth-child(3),
+.sheet:has(.cell:nth-child(4):focus) .col-letter:nth-child(4) {
+  color: var(--accent, #a05f25);
+  box-shadow: inset 0 -3px 0 0 var(--accent, #a05f25);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius, 10px);
+  padding: 9px 18px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: transform 60ms ease, background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent, #a05f25);
+  outline-offset: 2px;
+}
+
+.btn-clear {
+  background: var(--card, #ffffff);
+  border-color: var(--hairline, #c8bda8);
+  color: var(--ink-2, #6b6559);
+}
+
+.btn-clear:hover {
+  background: var(--panel, #fbf8f2);
+  color: var(--ink, #1a1a18);
+}
+
+.btn-send {
+  background: var(--accent, #a05f25);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(160, 95, 37, 0.28);
+}
+
+.btn-send:hover {
+  background: var(--accent, #a05f25);
+  background: color-mix(in srgb, var(--accent, #a05f25) 88%, var(--ink, #1a1a18) 12%);
+}
+
+.btn-send:active {
+  box-shadow: none;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 22px;
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink, #1a1a18);
+}
+
+.status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hairline, #c8bda8);
+  flex: 0 0 auto;
+}
+
+.status-ok {
+  color: var(--ink-2, #6b6559);
+}
+
+.status-ok::before {
+  content: "\2713";
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  color: var(--accent, #a05f25);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.status-err {
+  color: var(--accent, #a05f25);
+  color: color-mix(in srgb, var(--accent, #a05f25) 78%, var(--ink, #1a1a18) 22%);
+}
+
+.status-err::before {
+  content: "\21";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent, #a05f25);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Titular discreto al estilo kicker de ledger.css */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2, #6b6559);
+}
+
+.kicker::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--accent, #a05f25);
+}
+
+@media (max-width: 560px) {
+  .sheet-head,
+  .row {
+    grid-template-columns:
+      40px
+      minmax(118px, 1.6fr)
+      minmax(108px, 1.3fr)
+      minmax(96px, 1fr);
+    min-width: 362px;
+  }
+
+  .cell {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions .btn {
+    flex: 1 1 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}

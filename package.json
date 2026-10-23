@@ -1,0 +1,14 @@
+{
+  "name": "blox-invite-form",
+  "version": "0.1.0-alpha",
+  "private": false,
+  "description": "Alpha contact form (Excel-like table) that emails the collected contacts to a configured address.",
+  "license": "MIT",
+  "main": "server.js",
+  "bin": { "blox-invite-form": "server.js" },
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js"
+  }
+}

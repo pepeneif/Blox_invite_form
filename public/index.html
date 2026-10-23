@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Blox.Global — Contacts</title>
+  <link rel="stylesheet" href="ledger.css?v=0.1.0">
+  <link rel="stylesheet" href="form.css?v=0.1.0">
+  <link rel="stylesheet" href="page.css?v=0.1.0">
+</head>
+<body>
+  <main class="form-shell page">
+    <p class="kicker">Blox.Global</p>
+    <p class="lede form-intro">Please add the names and details of the users you want to generate crypto-backed cards for.</p>
+
+    <div class="sheet">
+      <div class="sheet-head">
+        <span class="rownum" aria-hidden="true"></span>
+        <span class="col-letter">Full Name</span>
+        <span class="col-letter">Email</span>
+        <span class="col-letter">Phone Number</span>
+      </div>
+      <div class="sheet-body" id="sheet-body"></div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-clear">Clear</button>
+      <button type="button" class="btn btn-send">Send</button>
+    </div>
+
+    <div class="status" id="status" role="status" aria-live="polite" hidden>
+      <span class="status-ok" hidden>Sent</span>
+      <span class="status-err" hidden>Missing data</span>
+    </div>
+  </main>
+  <script src="app.js?v=0.1.0" defer></script>
+</body>
+</html>
